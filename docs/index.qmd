@@ -13,53 +13,48 @@ table, th, td {
 }
 </style>
 
-```{python}
-#| include: false
+[py_af_colours](https://github.com/best-practice-and-impact/py-af-colours)
+aims to support the creation of accessible python graphs across the UK Government
+Analysis Function by bringing the accessble colour palettes to creators.
+The colour palettes have been designed to support visually impaired people
+interpret data visualisations by featuring distinct colours with suitable contrasts.
 
-import pandas as pd
-```
+The examples in these docs include other best practices for creating accessible graphs, with the full
+guidance available on the Analysis Function [website](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-charts/).
 
-</br>
-
-This page contains the documentation for the Python package containing the
-UK Government Analysis Function’s colour palettes.
-The [py_af_colours package](https://github.com/best-practice-and-impact/py-af-colours)
-aims to maintain the accessibility of graph outputs generated in Python across the Analysis 
-Function by simplifying the process by which users can access the 
-standardised colour palettes.
-
-py_af_colours sits alongside an R equivalent, [af_colours](https://github.com/best-practice-and-impact/afcolours).
+The data used throughout these examples is [provided](https://github.com/best-practice-and-impact/py-af-colours/tree/main/docs/data) in
+the required format on the `py_af_colours` repository.
 
 ## Requirements
-To run af_colours in Python, your system requires the following installations:
+To use `py_af_colours`, your system requires the following:
 
-1. Python 3.
-2. the PyYAML package.
-3. the [py_af_colours package](https://github.com/best-practice-and-impact/py-af-colours).
+1. Python 3
+2. the `PyYAML` package
+3. the [py_af_colours package](https://github.com/best-practice-and-impact/py-af-colours)
 
 
 ## Installing py_af_colours
-py_af_colours is now on [PyPI](https://pypi.org/project/py-af-colours/). To install the package:
+py_af_colours is on [PyPI](https://pypi.org/project/py-af-colours/). To install it:
 
-1. Open the anaconda powershell;
+1. Open a python terminal, such as Anaconda shell
 2. Run:
 
 ```{shell}
-pip install py-af-colours
+pip install py_af_colours
 ```
 
-## How to obtain colours
-In your python environment, import the af_colours function:
+## Getting the colours
+Import the af_colours function:
 
 ```{python}
 from py_af_colours import af_colours
 ```
 
-The af_colours function takes four arguments: palette, colour_format,
-number_of_colours, and config_path.
+The `af_colours` function takes four arguments: `palette`, `colour_format`,
+`number_of_colours`, and `config_path`.
 
 
-- palette is a required parameter, chosen by the user based on the 
+- `palette` is a required parameter, chosen by the user based on the 
 [Analysis Function colour guidance](https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/).
 It takes one of four possible string values corresponding to the options:
 
@@ -68,21 +63,21 @@ It takes one of four possible string values corresponding to the options:
     - "sequential"  
     - "categorical"  
 
-- colour_format is an optional parameter. It takes one of two possible string values:
+- `colour_format` is an optional parameter. It takes one of two possible string values:
     - "hex"; meaning hexadecimal colour code, for example #12436D. "hex" is the default value of colour_format if none is specified.
     - "rgb"; meaning red green blue colour code, for example (18, 67, 109).
 
-- number_of_colours is an optional parameter for the categorical palette. It takes an integer value up to 6.
+- `number_of_colours` is an optional parameter for the categorical palette. It takes an integer value up to 6.
 
-- config_path is an optional parameter that links to where the palette values are stored.
-It is not recommended for the user to specify a value for this parameter (see Basic examples)
-This should not be changed unless the user moves the file.
+- `config_path` is an optional parameter that links to where the palette values are stored.
+It is not recommended for the user to specify a value for this parameter (see Basic usage).
+It may be needed if the user moves the config file, or if they require custom values stored elsewhere.
 
-af_colours returns hex codes as a list of strings, and rgb codes as a list of tuples.
+`af_colours()` returns hex codes as a list of strings, and rgb codes as a list of tuples.
 
-## Basic examples
+## Basic usage
 
-For example, to return the duo colour palette hex codes:
+To return the duo colour palette hex codes:
 ```{python}
 af_colours("duo")
 
@@ -95,11 +90,13 @@ To return a five colour categorical palette as rgb codes:
 af_colours("categorical", "rgb", 5)
 ```
 
-See also that a warning is given for colours lists greater than four to let the user know that for accessibility
-best practice, it is prefered to use a limit of four categories.
+See also that warnings are given to highlight other accessibility best practice - in this case, to avoid
+graphs becoming cluttered.
+
+This lists can be specified as values for colour parameters with graphing packages such as `plotly` and `seaborn`.
 
 
-## Application
+## Examples in graphs
 ### Categorical
 This palette is for data which can be divided into groups or categories by using names or labels.
 
@@ -154,8 +151,9 @@ This palette is for data which can be divided into groups or categories by using
 
 ![](figures/figure1.svg)
 
-This clustered bar chart uses data based on the <a href="https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset?resource=download">world population dataset</a> and 
-shows data for four countries over five years. The legend is presented in the same order as the bars in the clusters. Data is available with the py_af_colours package.
+This clustered bar chart uses data based on the <a href="https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset?resource=download">world population dataset</a>.
+Each cluster corresponds to a year. Each of the four bars within each cluster represent a country, denoted a distinct colour. The bars are outlined in white to aid with contrast between the bars,
+with additional whitespace between the clusters. The legend is presented in the same order as the bars in the clusters.
 
 ```{python}
 #| eval: false
@@ -205,9 +203,8 @@ plt.show()
 
 ![](figures/figure2.svg)
 
-This a pie chart showing the proportional populations of the four most populous countries, 
-China, India, the United States, and Indonesia. This data is from the <a href="https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset?resource=download">world population dataset</a>, 
-available with the py_af_colours package.
+This a pie chart showing the proportional populations of the four most populous countries. Each country is represented by a distinct colour. Each
+slice is outlined in white, and labelled with a sans serif font in black. This data is from the <a href="https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset?resource=download">world population dataset</a>.
 
 ```{python}
 #| eval: false
@@ -285,9 +282,8 @@ This palette is for categorical data when there are two categories.
 
 ![](figures/figure3.svg)
 
-This line chart has two lines, one dark blue and one orange. This line chart uses data based on
+This line chart has two lines, one dark blue and one orange. Each is labelled with black text in a sans serif font. This line chart uses data based on
 the <a href="https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset?resource=download">world population dataset</a>.
-Data is available with the py_af_colours package.
 
 ```{python}
 #| eval: false
@@ -374,12 +370,12 @@ This palette is for data where the order of the data is meaningful, such as for 
 ![](figures/figure4.svg)
 
 This clustered bar chart uses data based on the <a href="https://www.kaggle.com/datasets/elmoallistair/population-by-age-group-2021">population by age dataset</a> and 
-shows data for five countries. The legend is presented in the same order as the bars in the clusters. Data is available with the py_af_colours package.
+shows the population of three age groups for five countries. Each country is labelled along the x axis. The bars within each cluster use the gradient of the sequential palette
+to follow the order of age bars going from young to older. The legend is presented at the top left of the graph in the same order as the age-group bars in the bar clusters.
+Each bar has a dark blue border and white space in between.
 
-Distinct from previous examples, this section features how to use the rgb list returned by af_colours. It is generally easier to use hex codes, 
-but this example is included for completeness. The end result is the same.
-
-The spacing in this example is to account for the bar borders, which are required for accessibility purposes.
+Distinct from previous examples, this example shows how to use an rgb list returned by af_colours. It is generally easier to use hex codes, 
+but this example is included for completeness. The end result is the same as using hex codes.
 
 ```{python}
 #| eval: false
@@ -458,8 +454,8 @@ This palette should be used when you want to highlight specific elements to help
 
 ![](figures/figure5.svg)
 
-This line chart uses data based on the <a href="https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset?resource=download">world population dataset</a>. 
-All lines are light grey, except the line showing the time series for India. Data is available with the py_af_colours package.
+This line chart uses data based on the <a href="https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset?resource=download">world population dataset</a>. It shows
+the change in population of various countries over time as five lines, of which four are a uniform light grey, and one is a dark blue, serving to highlight the data.
 
 ```{python}
 #| eval: false
@@ -521,8 +517,6 @@ plt.show()
 <br>
 
 ## Maintenance
-The Analysis Function colour palettes are stored inside the config file as hex codes,
-so that in the event of future updates to the colours, package maintenance can be
-contained to this file.
+In the event of future updates to the colours, they will be updated in the config file.
 
-This guidance page will undergo continual updates as changes to the package are rolled out.
+This page will undergo changes as the package is updated.

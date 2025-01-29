@@ -1,3 +1,5 @@
 __pycache__
 py_af_colours.egg-info
 dist
+.coverage
+build/
